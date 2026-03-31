@@ -20,6 +20,8 @@ async fn run() -> Result<()> {
             compatible_surface: None,
         })
         .await?;
+    let info = adapter.get_info();
+    println!("Using GPU: {} (backend: {:?})", info.name, info.backend);
     let (device, queue): (wgpu::Device, wgpu::Queue) = adapter
         .request_device(&wgpu::DeviceDescriptor::default())
         .await?;
