@@ -105,7 +105,10 @@ async fn run() -> Result<()> {
     buffer_slice.map_async(wgpu::MapMode::Read, move |result| {
         sender.send(result).unwrap();
     });
-    device.poll(PollType::Wait { submission_index: None, timeout: None })?;
+    device.poll(PollType::Wait {
+        submission_index: None,
+        timeout: None,
+    })?;
     receiver.recv().unwrap()?;
 
     let data = buffer_slice.get_mapped_range();
